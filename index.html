@@ -60,14 +60,14 @@
         repo: 'SonnyBoy222.github.io',
         branch: 'Mo3',
         path: 'date/messages.json',
-        token: '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'
+        token: 'ghp_e1ufW7NRMULiRyzun'
     };
 
     // GitHub API交互模块
     const githubAPI = {
         async getFileSHA() {
             const response = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`, {
-                headers: { Authorization: `token ${CONFIG.token}` }
+                headers: { Authorization: `token ${CONFIG.token}8BGmhTEY4QLSx2Y4qKx` }
             });
             return (await response.json()).sha;
         },
@@ -75,7 +75,7 @@
         async loadMessages() {
             try {
                 const response = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`, {
-                    headers: { Authorization: `token ${CONFIG.token}` }
+                    headers: { Authorization: `token ${CONFIG.token}8BGmhTEY4QLSx2Y4qKx` }
                 });
                 const data = await response.json();
                 return JSON.parse(atob(data.content.replace(/\s/g, '')));
@@ -92,7 +92,7 @@
                 
                 const response = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`, {
                     method: 'PUT',
-                    headers: { Authorization: `token ${CONFIG.token}` },
+                    headers: { Authorization: `token ${CONFIG.token}8BGmhTEY4QLSx2Y4qKx` },
                     body: JSON.stringify({
                         message: '母亲节祝福更新',
                         content: content,
