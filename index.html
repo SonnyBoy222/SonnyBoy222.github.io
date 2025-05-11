@@ -3,13 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub存储的祝福墙</title>
+    <title>祝福墙</title>
     <style>
-        /* 保持原有样式不变 */
-        body { background: linear-gradient(135deg, #ffe6f2 30%, #f0f8ff); }
-        .message-card { background: #fff0f5; padding: 15px; margin: 10px 0; }
-        #countdown { background: rgba(255,105,180,0.1); padding: 15px 20px; }
-    </style>
+/* 基础布局优化 */
+body {
+    background: linear-gradient(135deg, #ffe6f2 0%, #f0f8ff 100%);
+    min-height: 100vh;
+    font-family: "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+}
+
+/* 容器视觉层级提升 */
+#blessing-wall {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255,255,255,0.96);
+    border-radius: 1.25rem;
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.1),
+        0 2px 8px rgba(255,105,180,0.15);
+    backdrop-filter: blur(12px);
+}
+
+/* 卡片动态效果增强 */
+.message-card {
+    background: linear-gradient(to right, #fff0f5 98%, #ff69b4 100%);
+    padding: 1.25rem;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    border-left: 4px solid #ff69b4;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 
+        0 3px 6px rgba(255,105,180,0.1),
+        inset 0 -1px 0 rgba(0,0,0,0.05);
+}
+
+.message-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255,105,180,0.2);
+}
+
+/* 倒计时模块重构 */
+#countdown {
+    padding: 1.25rem;
+    margin: 2rem 0;
+    background: 
+        linear-gradient(145deg, 
+            rgba(255,105,180,0.12) 0%,
+            rgba(255,255,255,0.2) 100%);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255,105,180,0.15);
+    font-size: 1.25rem;
+    color: #c71585;
+    text-shadow: 0 2px 4px rgba(255,255,255,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+#countdown::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 25%,
+        rgba(255,255,255,0.4) 50%,
+        transparent 75%
+    );
+    animation: shine 3s infinite;
+}
+
+/* 表单控件现代化 */
+#message-input {
+    width: 70%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #ffb3d9;
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease;
+    font-size: 1rem;
+}
+
+#message-input:focus {
+    border-color: #ff69b4;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255,105,180,0.2);
+}
+
+button[type="submit"] {
+    padding: 0.75rem 2rem;
+    background: 
+        linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 4px 12px rgba(255,105,180,0.3),
+        0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 新增动画关键帧 */
+@keyframes shine {
+    100% { left: 100%; }
+}
+
+@keyframes cardEntrance {
+    0% { 
+        opacity: 0;
+        transform: translateY(20px) rotateX(-10deg);
+    }
+    100% { 
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+</style>
+
 </head>
 <body>
     <div id="blessing-wall">
