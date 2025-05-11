@@ -118,4 +118,21 @@ function updateMotherDayCountdown() {
 // 初始化倒计时
 updateMotherDayCountdown();
 setInterval(updateMotherDayCountdown, 1000);
+// 页面加载时读取历史消息
+window.addEventListener('DOMContentLoaded', () => {
+    const messages = JSON.parse(localStorage.getItem('messages')) || [];
+    renderMessages(messages); // 自定义渲染函数
+});
+
+// 提交消息时保存数据
+document.getElementById('submit-btn').addEventListener('click', () => {
+    const message = document.getElementById('input').value;
+    if (message) {
+        const messages = JSON.parse(localStorage.getItem('messages')) || [];
+        messages.push({ text: message, timestamp: new Date() });
+        localStorage.setItem('messages', JSON.stringify(messages)); // 必须转为JSON字符串[7](@ref)
+        renderMessages(messages);
+    }
+});
+
 
